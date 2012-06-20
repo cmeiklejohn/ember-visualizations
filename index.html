@@ -3,7 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Ember-visualizations by cmeiklejohn</title>
+    <title>ember-visualizations by cmeiklejohn</title>
+
+    <script type="text/javascript" src="javascripts/handlebars-1.0.0.beta.6.js"></script>
+    <script type="text/javascript" src="javascripts/d3.v2.js"></script>
+    <script type="text/javascript" src="javascripts/jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="javascripts/ember-0.9.8.1.js"></script>
+    <script type="text/javascript" src="javascripts/ember-visualizations.min.js"></script>
+    <script type="text/javascript" src="javascripts/examples.js"></script>
+
+    <link rel="stylesheet" href="stylesheets/examples.css">
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
@@ -15,7 +24,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Ember-visualizations</h1>
+        <h1>ember-visualizations</h1>
         <p>Basic Ember.js visualizations built in D3.</p>
         <p class="view"><a href="https://github.com/cmeiklejohn/ember-visualizations">View the Project on GitHub <small>cmeiklejohn/ember-visualizations</small></a></p>
         <ul>
@@ -33,11 +42,77 @@ graphs and charts.</p>
 <p>Ember Visualizations is currently under development.  Use at your own risk.  And, as
 always, contributions are greatly appreciated!</p>
 
-<h2>Usage</h2>
+<h2>Examples</h2>
 
-<p>Currently, Ember Visualizations supports generation of responsive Time Series and Histogram visualizations.</p>
+<p>Currently, Ember Visualizations supports generation of responsive
+Time Series and Histogram visualizations.  Special thanks to <a
+ href="http://bost.ocks.org/mike/">Mike Bostock</a> for the examples I
+took from his collection of D3 gists.</p>
 
-<p>View the full documentation <a href="http://cmeiklejohn.github.com/ember-visualizations">here</a>.</p>
+<div class="example">
+  <h3>Basic Histogram</h3>
+
+  <p>Setup a basic histogram with a set width and height with a custom
+  formatter for the x-axis.  Margins default to zero, so axis labels are
+  not visible.</p>
+
+  <script type="text/x-handlebars">
+    {{view Ember.HistogramView width="500"
+                               height="200"
+                               xFormatterBinding="App.histogramController.xFormatter"
+                               contentBinding="App.histogramController.content"}}
+  </script>
+
+  <script src="https://gist.github.com/2957564.js"> </script>
+</div>
+
+<div class="example">
+  <h3>Histogram with Responsive SVG</h3>
+
+  <p>Setup a basic histogram inside of a container, binding the width of
+  the rendered SVG to the outer container to allow it to grow with the
+  container preserving the original aspect ratio.</p>
+
+  <script type="text/x-handlebars">
+    {{#view Ember.CanvasView containerWidth="980" containerHeight="300" xFormatterBinding="App.histogramController.xFormatter"}}
+      {{view Ember.HistogramView widthBinding="width"
+                                 heightBinding="height"
+                                 viewBoxBinding="viewBox"
+                                 preserveAspectRatioBinding="preserveAspectRatio"
+                                 xMarginBinding="xMargin"
+                                 yMarginBinding="yMargin"
+                                 xFormatterBinding="xFormatter"
+                                 yFormatterBinding="yFormatter"
+                                 contentBinding="App.histogramController.content"}}
+    {{/view}}
+  </script>
+
+  <script src="https://gist.github.com/2957446.js"> </script>
+</div>
+
+<div class="example">
+  <h3>Time Series</h3>
+
+  <p>Setup a basic line graph inside of a container, binding the width of
+  the rendered SVG to the outer container to allow it to grow with the
+  container preserving the original aspect ratio.</p>
+
+  <script type="text/x-handlebars">
+    {{#view Ember.CanvasView containerWidth="980" containerHeight="300" xFormatterBinding="App.timeSeriesController.xFormatter"}}
+      {{view Ember.TimeSeriesView widthBinding="width"
+                                  heightBinding="height"
+                                  viewBoxBinding="viewBox"
+                                  preserveAspectRatioBinding="preserveAspectRatio"
+                                  xMarginBinding="xMargin"
+                                  yMarginBinding="yMargin"
+                                  xFormatterBinding="xFormatter"
+                                  yFormatterBinding="yFormatter"
+                                  contentBinding="App.timeSeriesController.content"}}
+    {{/view}}
+  </script>
+
+  <script src="https://gist.github.com/2957472.js"> </script>
+</div>
 
 <h2>Building Ember Visualizations.</h2>
 

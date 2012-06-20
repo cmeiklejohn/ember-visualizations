@@ -1,0 +1,43 @@
+div.example {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.gist, .gist pre {
+  font-size: 10px;
+}
+
+svg {
+  display: block;
+  margin: 0px auto;
+  margin-bottom: 20px;
+  font: 10px sans-serif;
+}
+
+path, line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+  shape-rendering: auto;
+}
+
+rect {
+  fill: steelblue;
+  stroke: white;
+  stroke-width: 1px;
+  shape-rendering: auto;
+}
+
+.axis path, .axis line {
+  stroke: black;
+}
+
+.grid path, .grid line {
+  stroke-width: 0.5px;
+  stroke: lightgrey;
+}
+
+.axis text {
+  font-family: sans-serif;
+  font-size: 9px;
+}
