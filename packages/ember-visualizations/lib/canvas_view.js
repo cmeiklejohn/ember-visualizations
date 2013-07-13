@@ -58,19 +58,19 @@ Ember.CanvasView = Ember.View.extend(
         containerHeight = this.get('containerHeight');
 
     return "0 0 " + containerWidth + " " + containerHeight;
-  }.property('containerWidth').cacheable(),
+  }.property('containerWidth'),
 
   preserveAspectRatio: function() {
     return "xMinYMid";
-  }.property('containerWidth').cacheable(),
+  }.property('containerWidth'),
 
   width: function() {
     return this.get('containerWidth');
-  }.property('containerWidth').cacheable(),
+  }.property('containerWidth'),
 
   height: function() {
     return this.get('containerWidth') / this.get('aspectRatio');
-  }.property('containerWidth').cacheable(),
+  }.property('containerWidth'),
 
   didInsertElement: function() {
     var self = this,
