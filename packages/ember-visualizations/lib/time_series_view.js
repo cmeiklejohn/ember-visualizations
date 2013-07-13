@@ -75,8 +75,10 @@ Ember.TimeSeriesView = Ember.VisualizationView.extend(
   yMax: function() {
     var content = this.get('content');
 
-    return d3.max(content.map(function(el) { return parseFloat(el.y); }));
-  }.property('samples').cacheable(),
+    return d3.max(content.map(function(el) {
+      return parseFloat(el.y);
+    }));
+  }.property('content'),
 
   didInsertElement: function() {
     var self       = this,
