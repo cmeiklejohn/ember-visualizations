@@ -67,8 +67,10 @@ Ember.TimeSeriesView = Ember.VisualizationView.extend(
         yMax    = this.get('yMax'),
         yMargin = this.get('yMargin');
 
-    return d3.scale.linear().domain([0, yMax]).range([height - yMargin, 0 + yMargin]);
-  }.property('content').cacheable(),
+    return d3.scale.linear().
+      domain([0, yMax]).
+      range([height - yMargin, 0 + yMargin]);
+  }.property('content'),
 
   yMax: function() {
     var content = this.get('content');

@@ -47,27 +47,37 @@ Ember.HistogramView = Ember.VisualizationView.extend(
     } else {
       return d3.layout.histogram()(this.getPath('content'));
     }
-  }.property('content').cacheable(),
+  }.property('content'),
 
   xScale: function() {
     var histogram = this.get('histogram'),
         width     = this.get('width'),
         xMargin   = this.get('xMargin');
 
-    Ember.assert("You need to provide a width for the histogram view.", width !== undefined);
+    Ember.assert(
+      "You need to provide a width for the histogram view.",
+      width !== undefined);
 
-    return d3.scale.ordinal().domain(histogram.map(function(d) { return d.x; })).rangeRoundBands([0 + xMargin, width - xMargin]);
-  }.property('histogram').cacheable(),
+    return d3.scale.ordinal().domain(
+        histogram.map(function(d) {
+          return d.x;
+        })).rangeRoundBands([0 + xMargin, width - xMargin]);
+  }.property('histogram'),
 
   yScale: function() {
     var histogram = this.get('histogram'),
         height    = this.get('height'),
         yMargin   = this.get('yMargin');
 
-    Ember.assert("You need to provide a height for the histogram view.", height !== undefined);
+    Ember.assert(
+        "You need to provide a height for the histogram view.",
+        height !== undefined);
 
-    return d3.scale.linear().domain([0, d3.max(histogram.map(function(d) { return d.y; }))]).range([height - yMargin, 0 + yMargin]);
-  }.property('histogram').cacheable(),
+    return d3.scale.linear().domain([0, d3.max(
+          histogram.map(function(d) {
+            return d.y;
+          }))]).range([height - yMargin, 0 + yMargin]);
+  }.property('histogram'),
 
   didInsertElement: function() {
     var self       = this,
@@ -87,14 +97,16 @@ Ember.HistogramView = Ember.VisualizationView.extend(
 
     svg = d3.select("#" + id);
 
-    svg.selectAll("rect")
-        .data(histogram)
-      .enter().append("rect")
-        .attr("class", "sample")
-        .attr("width", xScale.rangeBand())
-        .attr("x", function(d) { return xScale(d.x); })
-        .attr("y", function(d) { return yScale(d.y); })
-        .attr("height", function(d) { return height - yMargin - yScale(d.y); });
+    svg.selectAll("rect").
+        data(histogram).
+      enter().append("rect").
+        attr("class", "sample").
+        attr("width", xScale.rangeBand()).
+        attr("x", function(d) { return xScale(d.x); }).
+        attr("y", function(d) { return yScale(d.y); }).
+        attr("height", function(d) {
+          return height - yMargin - yScale(d.y);
+        });
 
     this._super();
   }

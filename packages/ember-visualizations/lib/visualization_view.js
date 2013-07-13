@@ -49,11 +49,11 @@ Ember.VisualizationView = Ember.View.extend(
 
   xScale: function() {
     return d3.scale.linear();
-  }.property('content').cacheable(),
+  }.property('content'),
 
   yScale: function() {
     return d3.scale.linear();
-  }.property('content').cacheable(),
+  }.property('content'),
 
   xFormatter: function(x) {
     return x;
