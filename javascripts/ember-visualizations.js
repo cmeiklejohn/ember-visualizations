@@ -365,33 +365,37 @@ Ember.HistogramView = Ember.VisualizationView.extend(
 Ember.TimeSeriesView = Ember.VisualizationView.extend(
 /** @scope Ember.TimeSeriesView.prototype */ {
 
+  series: function() {
+    return this.get('content');
+  }.property('content'),
+
   path: function() {
-    var content = this.get('content'),
+    var series  = this.get('series'),
         xScale  = this.get('xScale'),
         yScale  = this.get('yScale');
 
     return d3.svg.line().
       interpolate("linear").
       x(function(d) { return xScale(d.x); }).
-      y(function(d, i) { return yScale(d.y); })(content);
-  }.property('content'),
+      y(function(d, i) { return yScale(d.y); })(series);
+  }.property('series'),
 
   xScale: function() {
-    var content       = this.get('content'),
+    var series        = this.get('series'),
         width         = this.get('width'),
         xMargin       = this.get('xMargin'),
-        first_sample  = content[0],
-        last_sample   = content[content.length-1];
+        first_sample  = series[0],
+        last_sample   = series[series.length-1];
 
     if(first_sample && last_sample) {
       return d3.time.scale().
         domain([first_sample.x, last_sample.x]).
         range([0 + xMargin, width - xMargin]);
     }
-  }.property('content'),
+  }.property('series'),
 
   yScale: function() {
-    var content = this.get('content'),
+    var series  = this.get('series'),
         height  = this.get('height'),
         yMax    = this.get('yMax'),
         yMargin = this.get('yMargin');
@@ -399,15 +403,15 @@ Ember.TimeSeriesView = Ember.VisualizationView.extend(
     return d3.scale.linear().
       domain([0, yMax]).
       range([height - yMargin, 0 + yMargin]);
-  }.property('content'),
+  }.property('series'),
 
   yMax: function() {
-    var content = this.get('content');
+    var series = this.get('series');
 
-    return d3.max(content.map(function(el) {
+    return d3.max(series.map(function(el) {
       return parseFloat(el.y);
     }));
-  }.property('content'),
+  }.property('series'),
 
   didInsertElement: function() {
     var self       = this,
