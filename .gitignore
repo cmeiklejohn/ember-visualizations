@@ -1,2 +1,3 @@
 tmp/
 dist/*
+tests/ember-visualizations-tests.js
