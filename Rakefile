@@ -1,4 +1,4 @@
-abort "Please use Ruby 1.9 to build Ember.js!" if RUBY_VERSION !~ /^1\.9/
+abort "Please use Ruby 1.9 or 2.0 to build Ember.js!" if RUBY_VERSION !~ /^(1\.9|2.0)/
 
 require "bundler/setup"
 require "erb"
